@@ -14,11 +14,8 @@ namespace IoTCentral
             httpClient.DefaultRequestHeaders.Add("Authorization", "[ACCESS_TOKEN]");
             var deviceClient = new DevicesClient(httpClient);
             deviceClient.BaseUrl = "https://[APP_NAME].azureiotcentral.com/api/preview";
-            
-            var result = await deviceClient.ListAsync();
 
-            string json = JsonConvert.SerializeObject(result, Formatting.Indented);
-            Console.WriteLine(json);
+            await deviceClient.RemoveAsync("deviceId");
         }
     }
 }
