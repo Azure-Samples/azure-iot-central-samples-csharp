@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using IoTCentralSDK;
+using IoTCentral;
 
-namespace IoTCentral
+namespace IoTC
 {
     class Program
     {
@@ -14,7 +14,7 @@ namespace IoTCentral
             httpClient.DefaultRequestHeaders.Add("Authorization", "[ACCESS_TOKEN]");
             var deviceClient = new DevicesClient(httpClient);
             deviceClient.BaseUrl = "https://[APP_NAME].azureiotcentral.com/api/preview";
-            
+
             var result = await deviceClient.ListAsync();
 
             string json = JsonConvert.SerializeObject(result, Formatting.Indented);

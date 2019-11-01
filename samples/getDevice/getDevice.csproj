@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\IoTCentralSDK\IoTCentralSDK.csproj" />
+    <ProjectReference Include="..\..\IoTCentral\IoTCentral.csproj" />
   </ItemGroup>
 
 </Project>
