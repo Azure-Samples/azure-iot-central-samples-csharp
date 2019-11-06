@@ -3205,7 +3205,7 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Token { get; set; }
     
-        /// <summary>String-formatted date representing the time when the token expires</summary>
+        /// <summary>String-formatted date representing the time when the token expires.</summary>
         [Newtonsoft.Json.JsonProperty("expiry", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset? Expiry { get; set; }
     
@@ -3259,11 +3259,26 @@ namespace IoTCentral
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Capability : NamedEntity
+    {
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Interface : Entity
     {
         /// <summary>The data definitions contained by the interface.</summary>
         [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<NamedEntity> Contents { get; set; }
+        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
     
     
     }
@@ -3287,7 +3302,7 @@ namespace IoTCentral
     
         /// <summary>The relationships contained by the capability model.</summary>
         [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<NamedEntity> Contents { get; set; }
+        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
     
     
     }
@@ -3380,14 +3395,14 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
-        /// <summary>The model definition for the device.</summary>
+        /// <summary>The device template definition for the device.</summary>
         [Newtonsoft.Json.JsonProperty("instanceOf", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string InstanceOf { get; set; }
     
         /// <summary>Whether the device is simulated.</summary>
-        [Newtonsoft.Json.JsonProperty("simulated", Required = Newtonsoft.Json.Required.Always)]
-        public bool Simulated { get; set; }
+        [Newtonsoft.Json.JsonProperty("simulated", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Simulated { get; set; }
     
         /// <summary>Whether the device has been approved to connect to IoT Central.</summary>
         [Newtonsoft.Json.JsonProperty("approved", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3563,6 +3578,10 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Entity 
     {
+        /// <summary>JSON-LD context for the entity.</summary>
+        [Newtonsoft.Json.JsonProperty("@context", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object Context { get; set; }
+    
         /// <summary>Unique ID of the entity.</summary>
         [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -3570,6 +3589,7 @@ namespace IoTCentral
         /// <summary>Type of the entity.</summary>
         [Newtonsoft.Json.JsonProperty("@type", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.MinLength(1)]
         public System.Collections.Generic.ICollection<string> Type { get; set; } = new System.Collections.ObjectModel.Collection<string>();
     
         /// <summary>Display name of the entity.</summary>
@@ -3615,8 +3635,7 @@ namespace IoTCentral
     public partial class Value 
     {
         /// <summary>The value of this API response.</summary>
-        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
+        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object Value1 { get; set; }
     
     
@@ -3652,7 +3671,7 @@ namespace IoTCentral
     {
         /// <summary>The cloud properties defined by the solution model.</summary>
         [Newtonsoft.Json.JsonProperty("cloudProperties", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<NamedEntity> CloudProperties { get; set; }
+        public System.Collections.Generic.ICollection<Capability> CloudProperties { get; set; }
     
         /// <summary>The initial values defined by the solution model.</summary>
         [Newtonsoft.Json.JsonProperty("initialValues", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3684,27 +3703,46 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("capability", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public CapabilityReference Capability { get; set; }
     
-        /// <summary>The overridden display unit.</summary>
+        /// <summary>The overridden display unit for the referenced capability.</summary>
         [Newtonsoft.Json.JsonProperty("displayUnit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string DisplayUnit { get; set; }
     
-        /// <summary>The overridden semantic type.</summary>
+        /// <summary>The overridden semantic type for the referenced capability.</summary>
         [Newtonsoft.Json.JsonProperty("semanticType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string SemanticType { get; set; }
     
-        /// <summary>The overridden unit.</summary>
+        /// <summary>The overridden unit for the referenced capability.</summary>
         [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Unit { get; set; }
+    
+        /// <summary>Visualization details for the referenced capability.</summary>
+        [Newtonsoft.Json.JsonProperty("valueDetail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ValueDetail ValueDetail { get; set; }
     
     
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class CapabilityReference 
+    public partial class ValueDetail : Entity
+    {
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class CapabilityReference : Entity
     {
         /// <summary>The name of the component being referenced.</summary>
-        [Newtonsoft.Json.JsonProperty("instance", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Instance { get; set; }
+        [Newtonsoft.Json.JsonProperty("component", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Component { get; set; }
     
         /// <summary>The name of the capability being referenced.</summary>
         [Newtonsoft.Json.JsonProperty("reference", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
