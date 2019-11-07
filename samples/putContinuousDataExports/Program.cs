@@ -12,9 +12,9 @@ namespace IoTC
         static async Task Main(string[] args)
         {
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", "SharedAccessSignature sr=ba038589-a29b-4466-a730-525657ff0bbe&sig=n6Rf%2BH4VNHpEnbPOqd%2FJMAUCLEKMBcsBqykb4LijOG0%3D&skn=a&se=1604567854722");
+            httpClient.DefaultRequestHeaders.Add("Authorization", "[ACCESS_TOKEN]");
             var continuousDataExportsClient = new ContinuousDataExportsClient(httpClient);
-            continuousDataExportsClient.BaseUrl = "https://in-store-analytics---condition-monitoring-n167jxnnb5.azureiotcentral.com/api/preview";
+            continuousDataExportsClient.BaseUrl = "https://[APP_NAME].azureiotcentral.com/api/preview";
 
             var id = "306e7c12-75dd-4797-936e-f2fb5e9f309b";
             var continuousDataExport = new ContinuousDataExport

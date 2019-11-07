@@ -16,7 +16,7 @@ namespace IoTC
             var continuousDataExportsClient = new ContinuousDataExportsClient(httpClient);
             continuousDataExportsClient.BaseUrl = "https://[APP_NAME].azureiotcentral.com/api/preview";
 
-            var result = await continuousDataExportsClient.ListAsync();
+            var result = await continuousDataExportsClient.GetAsync("306e7c12-75dd-4797-936e-f2fb5e9f309b");
 
             string json = JsonConvert.SerializeObject(result, Formatting.Indented);
             Console.WriteLine(json);
