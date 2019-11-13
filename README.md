@@ -35,12 +35,20 @@ This sample shows you how to interact with Azure IoT Central APIs in C#.
     - Enter a Token name, select **Next**, and then **Copy**.
     > The token value is only shown once, so it must be copied before closing the dialog. After closing the dialog, it is never shown again.
 
-3. Navigate to `samples` folder and then change directory into the sample app you want to run. Update the following placeholders in the sample app.
+3. Navigate to `samples/listApplication` folder in your terminal. This app can list the IoT Central applications you have access to.
+
+    ```cmd
+    cd samples/listApplication
+    ```
+
+4. Update the following placeholders in the sample app.
 
     - `[ACCESS_TOKEN]`, replace with the API token you generated from last step.
     - `https://[APP_NAME].azureiotcentral.com/api/preview`, replace the `[APP_NAME]` with the app name in your IoT Central app URL.
 
 4. In the terminal, type and run `dotnet run`.
+
+5. Change directory into the sample app you want to run. Repeat step 3 and 4. You might also need to update other placeholders like `deviceID`, `MyDisplayName` and etc. based on the app you selected.
 
 ## Contributing
 
