@@ -27,17 +27,22 @@ Outline the file contents of the repository. It helps users navigate the codebas
 
 - [.NET Core 3.0](https://dotnet.microsoft.com/download)
 
-## Setup
-
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
-
 ## Runnning the sample
 
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+1. Follow the [steps to create an Azure IoT Central application](https://docs.microsoft.com/azure/iot-central/core/quick-deploy-iot-central)
 
-## Key concepts
+2. Generate an IoT Central API token.
+    - Navigate to **Administration** then **Access Tokens**.
+    - Select **Generate Token**.
+    - Enter a Token name, select **Next**, and then **Copy**.
+    > The token value is only shown once, so it must be copied before closing the dialog. After closing the dialog, it is never shown again.
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+3. Navigate to `samples` folder and then change directory into the sample app you want to run. Update the following placeholders in the sample app.
+
+    - `[ACCESS_TOKEN]`, replace with the API token you generated from last step.
+    - `https://[APP_NAME].azureiotcentral.com/api/preview`, replace the `[APP_NAME]` with the app name in your IoT central app URL.
+
+4. In the terminal, type and run `dotnet run`.
 
 ## Contributing
 
