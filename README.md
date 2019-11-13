@@ -48,7 +48,7 @@ This sample shows you how to interact with Azure IoT Central APIs in C#.
 
 4. In the terminal, type and run `dotnet run`.
 
-5. Change directory into the sample app you want to run. Repeat step 3 and 4. You might also need to update other placeholders like `deviceID`, `MyDisplayName` and etc. based on the app you selected.
+5. Change directory into the sample app you want to run. Repeat step 4 and 5. You might also need to update other placeholders like `deviceID`, `MyDisplayName` and etc. based on the app you selected.
 
 ## Contributing
 
