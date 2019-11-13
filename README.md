@@ -9,11 +9,9 @@ urlFragment: "update-this-to-unique-url-stub"
 ---
 
 # Azure IoT Central Sample
-This sample shows you how to interact with Azure IoT Central APIs
+This sample shows you how to interact with Azure IoT Central APIs in C#.
 
 ## Contents
-
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
 
 | File/folder       | Description                                |
 |-------------------|--|
@@ -40,7 +38,7 @@ Outline the file contents of the repository. It helps users navigate the codebas
 3. Navigate to `samples` folder and then change directory into the sample app you want to run. Update the following placeholders in the sample app.
 
     - `[ACCESS_TOKEN]`, replace with the API token you generated from last step.
-    - `https://[APP_NAME].azureiotcentral.com/api/preview`, replace the `[APP_NAME]` with the app name in your IoT central app URL.
+    - `https://[APP_NAME].azureiotcentral.com/api/preview`, replace the `[APP_NAME]` with the app name in your IoT Central app URL.
 
 4. In the terminal, type and run `dotnet run`.
 
