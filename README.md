@@ -8,15 +8,17 @@ description: "This sample shows you how to interact with Azure IoT Central APIs"
 urlFragment: "update-this-to-unique-url-stub"
 ---
 
-# Azure IoT Central Sample
-This sample shows you how to interact with Azure IoT Central APIs in C#.
+# Azure IoT Central Samples
+This sample shows you how to interact with Azure IoT Central APIs in C#. 
+If you have any questions or feature requests, please create new issue with detailed infomation.
 
 ## Contents
 
 | File/folder       | Description                                |
 |-------------------|--|
 | `IoTCentral`      | Auto-generate C# REST client from the swagger|
-| `samples`         | Sample apps that interats with IoT Central   |
+| `IoTCentralApp`   | A guided C# sample script that creates an IoT Central App with Arm templates and device templates |
+| `samples`         | Each sample app that interats with single IoT Central API |
 | `.gitignore`      | Define what to ignore at commit time.        |
 | `README.md`       | This README file.                            |
 | `LICENSE`         | The license for the sample.                  |
@@ -25,9 +27,23 @@ This sample shows you how to interact with Azure IoT Central APIs in C#.
 
 - [.NET Core 3.0](https://dotnet.microsoft.com/download)
 
-## Runnning the sample
+## Running the sample in `IoTCentralApp` folder
+1. Make sure [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) has been installed on your dev machine.
+2. In console Window, change directory to `src` folder.
+3. Type `dotnet run` and press enter.
+4. Follow the output in the console window to create your IoT Central App with a connected device. Basically, you will be doing the following things.
+    - Login via Azure CLI.
+    - Select a subscrption with arrow keys.
+    - Create a new resource group or not.
+    - Specify your IoT Central app name.
+    - After several minutes, you should see an new IoT Central app created. Then specify a device template file. If you leave blank, you will use the device template in `resource` folder.
+    - Enter the Component Name (if you use the default one in `resource` folder, please type `Interface` in this step)
+    - Enter the Telemetry Name (if you use the default one in `resource` folder, please type `Temperature` in this step)
+    - To visit your IoT Central app, you can either view the resource on Azure Portal, or just visit https://[YourIoTCentralAppName].azureiotcentral.com/
 
-1. Follow the [steps to create an Azure IoT Central application](https://docs.microsoft.com/azure/iot-central/core/quick-deploy-iot-central)
+## Running the sample in `samples` folder
+
+1. Follow the [steps to create an Azure IoT Central application](https://docs.microsoft.com/azure/iot-central/core/quick-deploy-iot-central) or open your existing IoT Central application.
 
 2. Generate an IoT Central API token.
     - Navigate to **Administration** then **Access Tokens**.
