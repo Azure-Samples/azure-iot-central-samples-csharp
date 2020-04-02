@@ -33,17 +33,6 @@ namespace IoTCentralApp
         public string SubscriptionId { set => subscriptionId = value; }
         public string ResourceGroupName { set => resourceGroupName = value; }
 
-        public async Task RunAsync()
-        {
-            await this.CreateTokenWithADALAsync();
-            this.iotCentralResourceName = "juntest0119-02-new-sdk";
-            this.initilizeHttpClientAzure();
-            await this.DeployIotCentralAppUsingARMTemplate("juntest0119-02-new-sdk", "iotc-condition@1.0.0");
-            this.initilizeHttpClientIoTCentral();
-            await this.CreateDeviceTemplate(Path.Combine(System.AppContext.BaseDirectory, "resources", "deviceTemplate.json"));
-            await this.CreateDevice("deviceId6");
-            await this.GetDeviveTelemetry("deviceId6", "S1_Sensor", "temperature");
-        }
 
         public async Task ParseTokenFromAzureCli()
         {
@@ -53,27 +42,6 @@ namespace IoTCentralApp
 
             this.AccessTokenAzure = await this.getRefreshedAccessToken(accessTokensArray, "https://management.core.windows.net");
             this.AccessTokenIoTCentral = await this.getRefreshedAccessToken(accessTokensArray, "https://apps.azureiotcentral.com");
-        }
-
-        public async Task CreateTokenWithADALAsync()
-        {
-            // var clientId = "6b6947ca-c26c-4fe4-bdf4-f28c6494b5d1"; // formulahendry
-            var clientId = "61d65f5a-6e3b-468b-af73-a033f5098c5c"; // azure-tools-for-java
-            // var clientId = "aebc6443-996d-45c2-90f0-388ff96faa56"; // VS Code Azure Account
-            var resource = "https://management.core.windows.net";
-            var resource2 = "https://apps.azureiotcentral.com";
-
-            AuthenticationContext context = new AuthenticationContext("https://login.microsoftonline.com/common", true);
-            // AuthenticationContext context = new AuthenticationContext("https://login.microsoftonline.com/645d490f-7a6a-429e-a624-037110319f4d", true); // formulahendry
-            var deviceCode = await context.AcquireDeviceCodeAsync(resource, clientId).ConfigureAwait(false);
-            Console.ResetColor();
-            Console.WriteLine("You need to sign in.");
-            Console.WriteLine("Message: " + deviceCode.Message + "\n");
-            var result = await context.AcquireTokenByDeviceCodeAsync(deviceCode).ConfigureAwait(false);
-            this.AccessTokenAzure = result.AccessToken;
-
-            var result2 = await context.AcquireTokenSilentAsync(resource2, clientId);
-            this.AccessTokenIoTCentral = result2.AccessToken;
         }
 
         public void initilizeHttpClientAzure()
@@ -220,10 +188,6 @@ namespace IoTCentralApp
                 throw new Exception(resultString);
             }
             dynamic resultObj = Newtonsoft.Json.JsonConvert.DeserializeObject(resultString);
-            Console.WriteLine(resultObj["access_token"]);
-            // string json = JsonConvert.SerializeObject(await result.Content.ReadAsStringAsync(), Formatting.Indented);
-            // Console.WriteLine(json);
-            // Console.WriteLine(await result.Content.ReadAsStringAsync());
             return (string)resultObj["access_token"];
         }
 

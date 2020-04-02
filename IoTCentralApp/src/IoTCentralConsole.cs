@@ -45,8 +45,6 @@ namespace IoTCentralApp
         {
             await this.client.ParseTokenFromAzureCli();
 
-            // await this.client.CreateTokenWithADALAsync();
-
             this.client.initilizeHttpClientAzure();
 
             await this.SelectSubscription();
