@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="ConsoleMenu-simple" Version="2.4.0" />
     <PackageReference Include="Microsoft.Azure.Management.Subscription" Version="1.1.3-preview" />
-    <ProjectReference Include="..\IoTCentral\IoTCentral.csproj" /> 
+    <ProjectReference Include="..\..\IoTCentral\IoTCentral.csproj" /> 
     <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.29.1" />
     <PackageReference Include="Microsoft.Azure.Management.IotCentral" Version="2.0.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.7.1" />

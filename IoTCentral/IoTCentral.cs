@@ -2015,161 +2015,6 @@ namespace IoTCentral
             }
         }
     
-        /// <summary>Get device cloud properties</summary>
-        /// <param name="device_id">Unique ID of the device.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<DeviceCloudProperties> GetCloudPropertiesAsync(string device_id)
-        {
-            return GetCloudPropertiesAsync(device_id, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Get device cloud properties</summary>
-        /// <param name="device_id">Unique ID of the device.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DeviceCloudProperties> GetCloudPropertiesAsync(string device_id, System.Threading.CancellationToken cancellationToken)
-        {
-            if (device_id == null)
-                throw new System.ArgumentNullException("device_id");
-    
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/devices/{device_id}/cloudProperties");
-            urlBuilder_.Replace("{device_id}", System.Uri.EscapeDataString(ConvertToString(device_id, System.Globalization.CultureInfo.InvariantCulture)));
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<DeviceCloudProperties>(response_, headers_).ConfigureAwait(false);
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
-            
-                        return default(DeviceCloudProperties);
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
-        /// <summary>Update device cloud properties</summary>
-        /// <param name="body">Device properties.</param>
-        /// <param name="device_id">Unique ID of the device.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<DeviceCloudProperties> UpdateCloudPropertiesAsync(DeviceCloudProperties body, string device_id)
-        {
-            return UpdateCloudPropertiesAsync(body, device_id, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Update device cloud properties</summary>
-        /// <param name="body">Device properties.</param>
-        /// <param name="device_id">Unique ID of the device.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DeviceCloudProperties> UpdateCloudPropertiesAsync(DeviceCloudProperties body, string device_id, System.Threading.CancellationToken cancellationToken)
-        {
-            if (device_id == null)
-                throw new System.ArgumentNullException("device_id");
-    
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/devices/{device_id}/cloudProperties");
-            urlBuilder_.Replace("{device_id}", System.Uri.EscapeDataString(ConvertToString(device_id, System.Globalization.CultureInfo.InvariantCulture)));
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PUT");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<DeviceCloudProperties>(response_, headers_).ConfigureAwait(false);
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
-            
-                        return default(DeviceCloudProperties);
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
         /// <summary>Get device command history</summary>
         /// <param name="device_id">Unique ID of the device.</param>
         /// <param name="component_name">Name of the device component.</param>
@@ -2336,6 +2181,161 @@ namespace IoTCentral
                         }
             
                         return default(DeviceCommand);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <summary>Get device cloud properties</summary>
+        /// <param name="device_id">Unique ID of the device.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<DeviceCloudProperties> GetCloudPropertiesAsync(string device_id)
+        {
+            return GetCloudPropertiesAsync(device_id, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Get device cloud properties</summary>
+        /// <param name="device_id">Unique ID of the device.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<DeviceCloudProperties> GetCloudPropertiesAsync(string device_id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (device_id == null)
+                throw new System.ArgumentNullException("device_id");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/devices/{device_id}/cloudProperties");
+            urlBuilder_.Replace("{device_id}", System.Uri.EscapeDataString(ConvertToString(device_id, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200") 
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<DeviceCloudProperties>(response_, headers_).ConfigureAwait(false);
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+            
+                        return default(DeviceCloudProperties);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <summary>Update device cloud properties</summary>
+        /// <param name="body">Device properties.</param>
+        /// <param name="device_id">Unique ID of the device.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<DeviceCloudProperties> UpdateCloudPropertiesAsync(DeviceCloudProperties body, string device_id)
+        {
+            return UpdateCloudPropertiesAsync(body, device_id, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Update device cloud properties</summary>
+        /// <param name="body">Device properties.</param>
+        /// <param name="device_id">Unique ID of the device.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<DeviceCloudProperties> UpdateCloudPropertiesAsync(DeviceCloudProperties body, string device_id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (device_id == null)
+                throw new System.ArgumentNullException("device_id");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/devices/{device_id}/cloudProperties");
+            urlBuilder_.Replace("{device_id}", System.Uri.EscapeDataString(ConvertToString(device_id, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200") 
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<DeviceCloudProperties>(response_, headers_).ConfigureAwait(false);
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+            
+                        return default(DeviceCloudProperties);
                     }
                     finally
                     {
@@ -2752,7 +2752,7 @@ namespace IoTCentral
         /// <param name="telemetry_name">Name of this device telemetry.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Value> GetTelemetryValueAsync(string device_id, string component_name, string telemetry_name)
+        public System.Threading.Tasks.Task<DeviceTelemetry> GetTelemetryValueAsync(string device_id, string component_name, string telemetry_name)
         {
             return GetTelemetryValueAsync(device_id, component_name, telemetry_name, System.Threading.CancellationToken.None);
         }
@@ -2764,7 +2764,7 @@ namespace IoTCentral
         /// <param name="telemetry_name">Name of this device telemetry.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Value> GetTelemetryValueAsync(string device_id, string component_name, string telemetry_name, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<DeviceTelemetry> GetTelemetryValueAsync(string device_id, string component_name, string telemetry_name, System.Threading.CancellationToken cancellationToken)
         {
             if (device_id == null)
                 throw new System.ArgumentNullException("device_id");
@@ -2809,7 +2809,7 @@ namespace IoTCentral
                         var status_ = ((int)response_.StatusCode).ToString();
                         if (status_ == "200") 
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Value>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<DeviceTelemetry>(response_, headers_).ConfigureAwait(false);
                             return objectResponse_.Object;
                         }
                         else
@@ -2819,7 +2819,7 @@ namespace IoTCentral
                             throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
             
-                        return default(Value);
+                        return default(DeviceTelemetry);
                     }
                     finally
                     {
@@ -3197,11 +3197,11 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiToken : Permission
     {
-        /// <summary>Unique ID of the api token.</summary>
+        /// <summary>Unique ID of the API token.</summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Id { get; set; }
     
-        /// <summary>Value of the api token.</summary>
+        /// <summary>Value of the API token.</summary>
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Token { get; set; }
     
@@ -3215,10 +3215,14 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiTokenCollection 
     {
-        /// <summary>The collection of api tokens.</summary>
+        /// <summary>The collection of API tokens.</summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ApiToken> Value { get; set; } = new System.Collections.ObjectModel.Collection<ApiToken>();
+    
+        /// <summary>URL to get the next page of API tokens.</summary>
+        [Newtonsoft.Json.JsonProperty("nextLink", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NextLink { get; set; }
     
     
     }
@@ -3255,54 +3259,9 @@ namespace IoTCentral
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Application> Value { get; set; } = new System.Collections.ObjectModel.Collection<Application>();
     
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Capability : NamedEntity
-    {
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Interface : Entity
-    {
-        /// <summary>The data definitions contained by the interface.</summary>
-        [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Component : NamedEntity
-    {
-        /// <summary>The interface used by this component.</summary>
-        [Newtonsoft.Json.JsonProperty("schema", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Interface Schema { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class CapabilityModel : Entity
-    {
-        /// <summary>The component implemented by the capability model.</summary>
-        [Newtonsoft.Json.JsonProperty("implements", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Component> Implements { get; set; }
-    
-        /// <summary>The relationships contained by the capability model.</summary>
-        [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
+        /// <summary>URL to get the next page of applications.</summary>
+        [Newtonsoft.Json.JsonProperty("nextLink", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NextLink { get; set; }
     
     
     }
@@ -3372,6 +3331,103 @@ namespace IoTCentral
         /// <summary>URL to get the next page of continuous data exports.</summary>
         [Newtonsoft.Json.JsonProperty("nextLink", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NextLink { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class SchemaField : NamedEntity
+    {
+        /// <summary>The schema of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("schema", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public object Schema { get; set; }
+    
+        /// <summary>The display name of the unit of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("displayUnit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string DisplayUnit { get; set; }
+    
+        /// <summary>The unit of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Unit { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Capability : NamedEntity
+    {
+        /// <summary>The schema of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("schema", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object Schema { get; set; }
+    
+        /// <summary>The display name of the unit of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("displayUnit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string DisplayUnit { get; set; }
+    
+        /// <summary>The unit of this field.</summary>
+        [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Unit { get; set; }
+    
+        /// <summary>The call pattern of this command.</summary>
+        [Newtonsoft.Json.JsonProperty("commandType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public CapabilityCommandType? CommandType { get; set; }
+    
+        /// <summary>The request definition for this command.</summary>
+        [Newtonsoft.Json.JsonProperty("request", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public SchemaField Request { get; set; }
+    
+        /// <summary>The response definition for this command.</summary>
+        [Newtonsoft.Json.JsonProperty("response", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public SchemaField Response { get; set; }
+    
+        /// <summary>Whether this property is writable.</summary>
+        [Newtonsoft.Json.JsonProperty("writable", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Writable { get; set; }
+    
+        /// <summary>The target capability models for this relationship.</summary>
+        [Newtonsoft.Json.JsonProperty("target", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.MinLength(1)]
+        public System.Collections.Generic.ICollection<string> Target { get; set; }
+    
+        /// <summary>The maximum multiplicity for this relationship.</summary>
+        [Newtonsoft.Json.JsonProperty("maxMultiplicity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? MaxMultiplicity { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Interface : Entity
+    {
+        /// <summary>The data definitions contained by the interface.</summary>
+        [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Component : NamedEntity
+    {
+        /// <summary>The interface used by this component.</summary>
+        [Newtonsoft.Json.JsonProperty("schema", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Interface Schema { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class CapabilityModel : Entity
+    {
+        /// <summary>The component implemented by the capability model.</summary>
+        [Newtonsoft.Json.JsonProperty("implements", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<Component> Implements { get; set; }
+    
+        /// <summary>The relationships contained by the capability model.</summary>
+        [Newtonsoft.Json.JsonProperty("contents", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<Capability> Contents { get; set; }
     
     
     }
@@ -3463,7 +3519,7 @@ namespace IoTCentral
     
         /// <summary>The status code of the device command response.</summary>
         [Newtonsoft.Json.JsonProperty("responseCode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
     
     
     }
@@ -3475,6 +3531,10 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<DeviceCommand> Value { get; set; } = new System.Collections.ObjectModel.Collection<DeviceCommand>();
+    
+        /// <summary>URL to get the next page of device command executions.</summary>
+        [Newtonsoft.Json.JsonProperty("nextLink", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NextLink { get; set; }
     
     
     }
@@ -3528,6 +3588,20 @@ namespace IoTCentral
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class DeviceTelemetry 
+    {
+        /// <summary>The last known value of this device telemetry.</summary>
+        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object Value { get; set; }
+    
+        /// <summary>String-formatted date representing the time when the telemetry value was sent.</summary>
+        [Newtonsoft.Json.JsonProperty("timestamp", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset? Timestamp { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class DeviceTemplate 
     {
         /// <summary>Unique ID of the device template.</summary>
@@ -3551,9 +3625,12 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
+        /// <summary>The capability model utilized by this device template.</summary>
         [Newtonsoft.Json.JsonProperty("capabilityModel", Required = Newtonsoft.Json.Required.Always)]
-        public CapabilityModel CapabilityModel { get; set; } = new CapabilityModel();
+        [System.ComponentModel.DataAnnotations.Required]
+        public CapabilityModel CapabilityModel { get; set; }
     
+        /// <summary>The solution model utilized by this device template.</summary>
         [Newtonsoft.Json.JsonProperty("solutionModel", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public SolutionModel SolutionModel { get; set; }
     
@@ -3632,16 +3709,6 @@ namespace IoTCentral
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Value 
-    {
-        /// <summary>The value of this API response.</summary>
-        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object Value1 { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Role 
     {
         /// <summary>Unique ID of the role.</summary>
@@ -3662,6 +3729,10 @@ namespace IoTCentral
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Role> Value { get; set; } = new System.Collections.ObjectModel.Collection<Role>();
+    
+        /// <summary>URL to get the next page of roles.</summary>
+        [Newtonsoft.Json.JsonProperty("nextLink", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NextLink { get; set; }
     
     
     }
@@ -3687,6 +3758,7 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class InitialValue : Entity
     {
+        /// <summary>The reference to the capability for which an initial value is being provided.</summary>
         [Newtonsoft.Json.JsonProperty("capability", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public CapabilityReference Capability { get; set; }
     
@@ -3700,6 +3772,7 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Override : Entity
     {
+        /// <summary>The reference to the capability which is being overridden.</summary>
         [Newtonsoft.Json.JsonProperty("capability", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public CapabilityReference Capability { get; set; }
     
@@ -3725,14 +3798,46 @@ namespace IoTCentral
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ValueDetail : Entity
     {
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+        /// <summary>The string representation of a false value.</summary>
+        [Newtonsoft.Json.JsonProperty("falseName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string FalseName { get; set; }
     
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
+        /// <summary>The string representation of a true value.</summary>
+        [Newtonsoft.Json.JsonProperty("trueName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string TrueName { get; set; }
+    
+        /// <summary>Specifies that the time portion of the date-time value should be hidden.</summary>
+        [Newtonsoft.Json.JsonProperty("hideTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? HideTime { get; set; }
+    
+        /// <summary>Specifies the severity of the event.</summary>
+        [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ValueDetailSeverity? Severity { get; set; }
+    
+        /// <summary>The number of decimal places that should be displayed for the number.</summary>
+        [Newtonsoft.Json.JsonProperty("decimalPlaces", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? DecimalPlaces { get; set; }
+    
+        /// <summary>The maximum expected value of the number.</summary>
+        [Newtonsoft.Json.JsonProperty("maxValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? MaxValue { get; set; }
+    
+        /// <summary>The minimum expected value of the number.</summary>
+        [Newtonsoft.Json.JsonProperty("minValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? MinValue { get; set; }
+    
+        /// <summary>The maximum expected length of the string.</summary>
+        [Newtonsoft.Json.JsonProperty("maxLength", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? MaxLength { get; set; }
+    
+        /// <summary>The minimum expected length of the string.</summary>
+        [Newtonsoft.Json.JsonProperty("minLength", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? MinLength { get; set; }
+    
+        /// <summary>Specifies the visual and storage treatment of whitespaces in the string.</summary>
+        [Newtonsoft.Json.JsonProperty("trimWhitespace", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? TrimWhitespace { get; set; }
     
     
     }
@@ -3762,6 +3867,31 @@ namespace IoTCentral
     
         [System.Runtime.Serialization.EnumMember(Value = @"telemetry")]
         Telemetry = 2,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum CapabilityCommandType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"synchronous")]
+        Synchronous = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"asynchronous")]
+        Asynchronous = 1,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum ValueDetailSeverity
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"error")]
+        Error = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"warning")]
+        Warning = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"information")]
+        Information = 2,
     
     }
     
