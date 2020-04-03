@@ -29,9 +29,16 @@ If you have any questions or feature requests, please create new issue with deta
 
 ## Running the sample in `IoTCentralApp` folder
 1. Make sure [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) has been installed on your dev machine.
-2. In console Window, change directory to `src` folder.
-3. Type `dotnet run` and press enter.
-4. Follow the output in the console window to create your IoT Central App with a connected device. Basically, you will be doing the following things.
+2. In console window, run below command to login:
+
+    ```cmd
+    az login
+    az account get-access-token --resource https://apps.azureiotcentral.com
+    ```
+
+3. In console window, change directory to `src` folder.
+4. Type `dotnet run` and press enter.
+5. Follow the output in the console window to create your IoT Central App with a connected device. Basically, you will be doing the following things.
     - Login via Azure CLI.
     - Select a subscrption with arrow keys.
     - Create a new resource group or not.
