@@ -1,0 +1,405 @@
+{
+    "displayName": "API E2E Standard Template",
+    "capabilityModel": {
+        "@id": "dtmi:apie2e:standard;1",
+        "@type": "Interface",
+        "contents": [
+            {
+                "@id": "dtmi:apie2e:standard:RootDoubleTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootDoubleTelemetry",
+                "name": "RootDoubleTelemetry",
+                "schema": "double"
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootStringTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootStringTelemetry",
+                "name": "RootStringTelemetry",
+                "schema": "string"
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootArrayTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootArrayTelemetry",
+                "name": "RootArrayTelemetry",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootArrayTelemetry:schema;1",
+                    "@type": "Array",
+                    "displayName": "Array",
+                    "elementSchema": "double"
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootComplexTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootComplexTelemetry",
+                "name": "RootComplexTelemetry",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootComplexTelemetry:schema;1",
+                    "@type": "Object",
+                    "displayName": "Object",
+                    "fields": [
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexTelemetry:schema:RootComplexA;1",
+                            "displayName": "RootComplexA",
+                            "name": "RootComplexA",
+                            "schema": "double"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexTelemetry:schema:RootComplexB;1",
+                            "displayName": "RootComplexB",
+                            "name": "RootComplexB",
+                            "schema": "double"
+                        }
+                    ]
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootLocationTelemetry;1",
+                "@type": ["Telemetry", "Location"],
+                "displayName": "RootLocationTelemetry",
+                "name": "RootLocationTelemetry",
+                "schema": "geopoint"
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootMapTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootMapTelemetry",
+                "name": "RootMapTelemetry",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootMapTelemetry:schema;1",
+                    "@type": "Map",
+                    "displayName": "Map",
+                    "mapKey": {
+                        "@id": "dtmi:apie2e:standard:RootMapTelemetry:schema:RootMapKey;1",
+                        "displayName": "RootMapKey",
+                        "name": "RootMapKey",
+                        "schema": "string"
+                    },
+                    "mapValue": {
+                        "@id": "dtmi:apie2e:standard:RootMapTelemetry:schema:RootMapValue;1",
+                        "displayName": "RootMapValue",
+                        "name": "RootMapValue",
+                        "schema": "double"
+                    }
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootEnumTelemetry;1",
+                "@type": "Telemetry",
+                "displayName": "RootEnumTelemetry",
+                "name": "RootEnumTelemetry",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootEnumTelemetry:schema;1",
+                    "@type": "Enum",
+                    "displayName": "Enum",
+                    "enumValues": [
+                        {
+                            "@id": "dtmi:apie2e:standard:RootEnumTelemetry:schema:Red;1",
+                            "displayName": "Red",
+                            "enumValue": 1,
+                            "name": "Red"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootEnumTelemetry:schema:Blue;1",
+                            "displayName": "Blue",
+                            "enumValue": 2,
+                            "name": "Blue"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootEnumTelemetry:schema:White;1",
+                            "displayName": "White",
+                            "enumValue": 3,
+                            "name": "White"
+                        }
+                    ],
+                    "valueSchema": "integer"
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:settings;1",
+                "@type": "Component",
+                "displayName": "Settings",
+                "name": "settings",
+                "schema": {
+                    "@id": "dtmi:apie2e:settings;1",
+                    "@type": "Interface",
+                    "contents": [
+                        {
+                            "@id": "dtmi:apie2e:settings:ComponentTelemetry;1",
+                            "@type": ["Telemetry", "Current"],
+                            "displayName": "ComponentTelemetry",
+                            "name": "ComponentTelemetry",
+                            "schema": "double"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:settings:ComponentReadonlyProperty;1",
+                            "@type": "Property",
+                            "displayName": "ComponentReadonlyProperty",
+                            "name": "ComponentReadonlyProperty",
+                            "schema": "string",
+                            "writable": false
+                        },
+                        {
+                            "@id": "dtmi:apie2e:settings:ComponentWritableProperty;1",
+                            "@type": "Property",
+                            "displayName": "ComponentWritableProperty",
+                            "name": "ComponentWritableProperty",
+                            "schema": "vector",
+                            "writable": true
+                        },
+                        {
+                            "@id": "dtmi:apie2e:settings:ComponentCommand;1",
+                            "@type": "Command",
+                            "commandType": "synchronous",
+                            "displayName": "ComponentCommand",
+                            "name": "ComponentCommand"
+                        }
+                    ],
+                    "displayName": "Settings"
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootDoubleReadonlyProperty;1",
+                "@type": "Property",
+                "displayName": "RootDoubleReadonlyProperty",
+                "name": "RootDoubleReadonlyProperty",
+                "schema": "double",
+                "writable": false
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootStringReadonlyProperty;1",
+                "@type": "Property",
+                "displayName": "RootStringReadonlyProperty",
+                "name": "RootStringReadonlyProperty",
+                "schema": "string",
+                "writable": false
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootComplexReadonlyProperty;1",
+                "@type": "Property",
+                "displayName": "RootComplexReadonlyProperty",
+                "name": "RootComplexReadonlyProperty",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootComplexReadonlyProperty:schema;1",
+                    "@type": "Object",
+                    "displayName": "Object",
+                    "fields": [
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexReadonlyProperty:schema:HumidityThreshold;1",
+                            "displayName": "HumidityThreshold",
+                            "name": "HumidityThreshold",
+                            "schema": "double"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexReadonlyProperty:schema:TemperatureThreshold;1",
+                            "displayName": "TemperatureThreshold",
+                            "name": "TemperatureThreshold",
+                            "schema": "double"
+                        }
+                    ]
+                },
+                "writable": false
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootDoubleWritableProperty;1",
+                "@type": "Property",
+                "displayName": "RootDoubleWritableProperty",
+                "name": "RootDoubleWritableProperty",
+                "schema": "double",
+                "writable": true
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootStringWritableProperty;1",
+                "@type": "Property",
+                "displayName": "RootStringWritableProperty",
+                "name": "RootStringWritableProperty",
+                "schema": "string",
+                "writable": true
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootComplexWritableProperty;1",
+                "@type": "Property",
+                "displayName": "RootComplexWritableProperty",
+                "name": "RootComplexWritableProperty",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootComplexWritableProperty:schema;1",
+                    "@type": "Object",
+                    "displayName": "Object",
+                    "fields": [
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexWritableProperty:schema:TemperatureThreshold;1",
+                            "displayName": "TemperatureThreshold",
+                            "name": "TemperatureThreshold",
+                            "schema": "double"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootComplexWritableProperty:schema:HumidityThreshold;1",
+                            "displayName": "HumidityThreshold",
+                            "name": "HumidityThreshold",
+                            "schema": "double"
+                        }
+                    ]
+                },
+                "writable": true
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootQueuedCommand;1",
+                "@type": "Command",
+                "displayName": "RootQueuedCommand",
+                "name": "RootQueuedCommand",
+                "request": {
+                    "@type": "CommandPayload",
+                    "displayName": "Threshold",
+                    "name": "Threshold",
+                    "schema": "double"
+                },
+                "durable": true
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootAsyncCommand;1",
+                "@type": "Command",
+                "commandType": "asynchronous",
+                "displayName": "RootAsyncCommand",
+                "name": "RootAsyncCommand",
+                "request": {
+                    "@type": "CommandPayload",
+                    "displayName": "request",
+                    "name": "request",
+                    "schema": "double"
+                },
+                "response": {
+                    "@type": "CommandPayload",
+                    "displayName": "response",
+                    "name": "response",
+                    "schema": "double"
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootSyncCommand;1",
+                "@type": "Command",
+                "commandType": "synchronous",
+                "displayName": "RootSyncCommand",
+                "name": "RootSyncCommand",
+                "request": {
+                    "@type": "CommandPayload",
+                    "displayName": "Settings",
+                    "name": "Settings",
+                    "schema": {
+                        "@type": "Object",
+                        "displayName": "Object",
+                        "fields": [
+                            {
+                                "displayName": "Temperature",
+                                "name": "Temperature",
+                                "schema": "double"
+                            },
+                            {
+                                "displayName": "Humidity",
+                                "name": "Humidity",
+                                "schema": "double"
+                            }
+                        ]
+                    }
+                },
+                "response": {
+                    "@type": "CommandPayload",
+                    "displayName": "Success",
+                    "name": "Success",
+                    "schema": "boolean"
+                }
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootCloudDoubleProperty",
+                "@type": ["Property", "Cloud"],
+                "displayName": "RootCloudDoubleProperty",
+                "name": "RootCloudDoubleProperty",
+                "schema": "double"
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootCloudStringProperty",
+                "@type": ["Property", "Cloud"],
+                "displayName": "RootCloudStringProperty",
+                "name": "RootCloudStringProperty",
+                "schema": "string"
+            },
+            {
+                "@id": "dtmi:apie2e:standard:RootCloudEnumProperty",
+                "@type": ["Property", "Cloud"],
+                "displayName": "RootCloudEnumProperty",
+                "name": "RootCloudEnumProperty",
+                "schema": {
+                    "@id": "dtmi:apie2e:standard:RootCloudEnumProperty:schema;1",
+                    "@type": "Enum",
+                    "displayName": "Enum",
+                    "enumValues": [
+                        {
+                            "@id": "dtmi:apie2e:standard:RootCloudEnumProperty:schema:Online;1",
+                            "displayName": "Online",
+                            "enumValue": 1,
+                            "name": "Online"
+                        },
+                        {
+                            "@id": "dtmi:apie2e:standard:RootCloudEnumProperty:schema:Offline;1",
+                            "displayName": "Offline",
+                            "enumValue": 0,
+                            "name": "Offline"
+                        }
+                    ],
+                    "valueSchema": "integer"
+                }
+            }
+        ],
+        "displayName": "API E2E Standard Capability Model",
+        "extends": [
+            {
+                "@id": "dtmi:apie2e:roomInterface;1",
+                "@type": ["Interface", "NamedInterface"],
+                "contents": [
+                    {
+                        "@id": "dtmi:apie2e:roomInterface:InheritedInterfaceDoubleTelemetry;1",
+                        "@type": ["Telemetry", "Humidity"],
+                        "displayName": "InheritedInterfaceDoubleTelemetry",
+                        "name": "InheritedInterfaceDoubleTelemetry",
+                        "schema": "double"
+                    },
+                    {
+                        "@id": "dtmi:apie2e:roomInterface:InheritedInterfaceReadonlyProperty;1",
+                        "@type": "Property",
+                        "displayName": "InheritedInterfaceReadonlyProperty",
+                        "name": "InheritedInterfaceReadonlyProperty",
+                        "schema": "string",
+                        "writable": false
+                    },
+                    {
+                        "@id": "dtmi:apie2e:roomInterface:InheritedInterfaceCommand;1",
+                        "@type": "Command",
+                        "commandType": "synchronous",
+                        "displayName": "InheritedInterfaceCommand",
+                        "name": "InheritedInterfaceCommand",
+                        "request": {
+                            "@type": ["CommandPayload", "Initialized"],
+                            "displayName": "Temperature Threshold",
+                            "name": "TemperatureThreshold",
+                            "schema": "double",
+                            "initialValue": 100
+                        }
+                    },
+                    {
+                        "@id": "dtmi:apie2e:roomInterface:InheritedInterfaceWritableProperty;1",
+                        "@type": "Property",
+                        "displayName": "InheritedInterfaceWritableProperty",
+                        "name": "InheritedInterfaceWritableProperty",
+                        "schema": "double",
+                        "writable": true
+                    }
+                ],
+                "displayName": "Room Interface",
+                "name": "roomInterface"
+            }
+        ]
+    },
+    "@type": ["ModelDefinition", "DeviceModel"],
+    "@context": ["dtmi:iotcentral:context;2", "dtmi:dtdl:context;2"]
+}
