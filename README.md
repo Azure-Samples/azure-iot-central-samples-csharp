@@ -16,8 +16,7 @@ If you have any questions or feature requests, please create new issue with deta
 
 | File/folder       | Description                                |
 |-------------------|--|
-| `IoTCentral`      | Auto-generate C# REST client from the swagger|
-| `IoTCentralApp`   | A guided C# sample script that creates an IoT Central App with Arm templates and device templates |
+| `SDK`      | Auto-generate C# REST client from the swagger|
 | `samples`         | Each sample app that interats with single IoT Central API |
 | `.gitignore`      | Define what to ignore at commit time.        |
 | `README.md`       | This README file.                            |
@@ -25,53 +24,66 @@ If you have any questions or feature requests, please create new issue with deta
 
 ## Prerequisites
 
-- [.NET Core 3.0](https://dotnet.microsoft.com/download)
+- [.NET Core 6.0](https://dotnet.microsoft.com/download)
 
-## Running the sample in `IoTCentralApp` folder
+## Running the sample in `Examples` folder
 1. Make sure [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) has been installed on your dev machine.
 2. In console window, run below command to login:
 
     ```cmd
     az login
-    az account get-access-token --resource https://apps.azureiotcentral.com
+    az extension add --name azure-iot
     ```
 
-3. In console window, change directory to `src` folder.
-4. Type `dotnet run` and press enter.
-5. Follow the output in the console window to create your IoT Central App with a connected device. Basically, you will be doing the following things.
-    - Login via Azure CLI.
-    - Select a subscrption with arrow keys.
-    - Create a new resource group or not.
-    - Specify your IoT Central app name.
-    - After several minutes, you should see an new IoT Central app created. Then specify a device template file. If you leave blank, you will use the device template in `resource` folder.
-    - Enter the Component Name (if you use the default one in `resource` folder, please type `Interface` in this step)
-    - Enter the Telemetry Name (if you use the default one in `resource` folder, please type `Temperature` in this step)
-    - To visit your IoT Central app, you can either view the resource on Azure Portal, or just visit https://[YourIoTCentralAppName].azureiotcentral.com/
-
-## Running the sample in `samples` folder
-
-1. Follow the [steps to create an Azure IoT Central application](https://docs.microsoft.com/azure/iot-central/core/quick-deploy-iot-central) or open your existing IoT Central application.
-
-2. Generate an IoT Central API token.
-    - Navigate to **Administration** then **Access Tokens**.
-    - Select **Generate Token**.
-    - Enter a Token name, select **Next**, and then **Copy**.
-    > The token value is only shown once, so it must be copied before closing the dialog. After closing the dialog, it is never shown again.
-
-3. Navigate to `samples/listApplication` folder in your terminal. This app can list the IoT Central applications you have access to.
-
+3. Setup application name
     ```cmd
-    cd samples/listApplication
+    APP_NAME = "fleet-manager-$RANDOM"
+    echo "Your application name is: $APP_NAME"
     ```
 
-4. Update the following placeholders in the sample app.
+4. Create Azure IoT Central Application from CLI
+    ```cmd
+    az iot central app create \
+        --resource-group [resource group name] \
+        --name $APP_NAME --sku ST2 --location centralus \
+        --subdomain $APP_NAME --template iotc-pnp-preview \
+        --display-name 'Fleet management' 
+    ```
+5. Register Azure AAD Application
+    ```cmd
+    aadAppId=$(az ad app create --display-name fleetapp --required-resource-accesses @manifest.json --is-fallback-public-client true --public-client-redirect-uris http://localhost --sign-in-audience AzureADmyOrg | grep -oP '
+    (?<="appId": ")[^"]*')
+    ```
+6. Grant Admin Consent
+    ```cmd
+    az ad app permission admin-consent --id $aadAppId
+    ```
+5. Show the required variables from following command
+    ```cmd
+    echo $tenantId $aadAppId $APP_NAME
+    ```
+6. Replace from `Examples/Constants.cs` with the results returned from above command line
+    ```csharp
+        public const string ClientApplicationId = "{aadAppId}"
 
-    - `[ACCESS_TOKEN]`, replace with the API token you generated from last step.
-    - `https://[APP_NAME].azureiotcentral.com/api/preview`, replace the `[APP_NAME]` with the app name in your IoT Central app URL.
+        public const string TenantId = "{tenantId}";
 
-4. In the terminal, type and run `dotnet run`.
+        public const string AppName = "{APP_NAME}";
+    ```
 
-5. Change directory into the sample app you want to run. Repeat step 4 and 5. You might also need to update other placeholders like `deviceID`, `MyDisplayName` and etc. based on the app you selected.
+## Running the sample in `samples\Examples` folder
+
+1. Uncomments line by line from following code in `Program.cs`
+    ```csharp
+            // UserOrgExample.Run(centralClient, options);
+            // DeviceTemplateExample.Run(centralClient, options);
+            // DeviceExample.Run(centralClient, options);
+            // FileUploadExample.Run(centralClient, options);
+            // DeviceGroupExample.Run(centralClient, options);
+            // EnrollmentGroupExample.Run(centralClient, options);    
+    ```
+
+2. In the terminal, type and run `dotnet run`.
 
 ## Contributing
 
