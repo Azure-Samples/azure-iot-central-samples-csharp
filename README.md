@@ -28,41 +28,56 @@ If you have any questions or feature requests, please create new issue with deta
 
 ## Running the sample in `Examples` folder
 1. Make sure [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) has been installed on your dev machine.
-2. In console window, run below command to login:
+1. In console window, run below command to login:
 
-    ```cmd
+    ```bash
     az login
     az extension add --name azure-iot
     ```
 
-3. Setup application name
-    ```cmd
-    APP_NAME = "fleet-manager-$RANDOM"
+1. Setup application and resource group name
+    ```bash
+    APP_NAME="fleet-manager-$RANDOM"
+    RESOURCE_GROUP="rg-fleet-manager"
+    echo "Your resource group is: $RESOURCE_GROUP"
     echo "Your application name is: $APP_NAME"
     ```
 
-4. Create Azure IoT Central Application from CLI
-    ```cmd
+1. Create the resource group
+     ```bash
+     az group create --location centralus --resource-group $RESOURCE_GROUP
+    ```
+
+1. Create Azure IoT Central Application from CLI
+    ```bash
     az iot central app create \
-        --resource-group [resource group name] \
+        --resource-group $RESOURCE_GROUP \
         --name $APP_NAME --sku ST2 --location centralus \
         --subdomain $APP_NAME --template iotc-pnp-preview \
         --display-name 'Fleet management' 
     ```
-5. Register Azure AAD Application
-    ```cmd
-    aadAppId=$(az ad app create --display-name fleetapp --required-resource-accesses @manifest.json --is-fallback-public-client true --public-client-redirect-uris http://localhost --sign-in-audience AzureADmyOrg | grep -oP '
-    (?<="appId": ")[^"]*')
+
+1. Register Azure AAD Application
+    ```bash
+    aadAppId=$(az ad app create --display-name fleetapp --required-resource-accesses @manifest.json --is-fallback-public-client true --public-client-redirect-uris http://localhost --sign-in-audience AzureADmyOrg --output tsv --query "appId")
     ```
-6. Grant Admin Consent
-    ```cmd
+
+1. Grant Admin Consent
+    ```bash
     az ad app permission admin-consent --id $aadAppId
     ```
-5. Show the required variables from following command
-    ```cmd
+
+1. Get your tenant ID
+    ```bash
+    tenantId=$(az account show --output tsv --query "tenantId")
+    ```
+
+1. Show the required variables from following command
+    ```bash
     echo $tenantId $aadAppId $APP_NAME
     ```
-6. Replace from `Examples/Constants.cs` with the results returned from above command line
+
+1. Replace from `Examples/Constants.cs` with the results returned from above command line
     ```csharp
         public const string ClientApplicationId = "{aadAppId}"
 
