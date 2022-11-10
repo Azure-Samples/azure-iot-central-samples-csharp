@@ -15,13 +15,18 @@ namespace PreviewExamples {
             // Create list of edge Devices
             for (int i = 0; i < 5; i++) {
                 var deviceId = $"testdevice_{i}";
-                if (devicesClient.Get(deviceId).GetRawResponse().Status == 404) {
-                    var device = new Device();
-                    device.DisplayName = $"test device {i}";
-                    device.Enabled = false;
-                    device.Simulated = false;
-                    device.Type.Add(DeviceType.IotEdge);
-                    devicesClient.Create(deviceId, device);
+                try {
+                    devicesClient.Get(deviceId);
+                } catch (Azure.RequestFailedException e) {
+                    if (e.Status == 404) {
+                        var device = new Device();
+                        device.DisplayName = $"test device {i}";
+                        device.Enabled = false;
+                        device.Simulated = false;
+                        device.Type.Add(DeviceType.IotEdge);
+                        devicesClient.Create(deviceId, device);
+                        Console.WriteLine($"Device: {deviceId} created!");
+                    }
                 }
                 Thread.Sleep(100);
             }
@@ -84,6 +89,16 @@ namespace PreviewExamples {
             // Get device with deployment manifest
             var deviceWithManifest = devicesClient.Get(edgeDevice.Id, expand: "deploymentManifest");
             Console.WriteLine(JsonSerializer.Serialize(deviceWithManifest, deviceWithManifest.GetType()));
+
+            // Clean up devices
+            for (int i = 0; i < 5; i++) {
+                var deviceId = $"testdevice_{i}";
+                try {
+                    devicesClient.Remove(deviceId);
+                } catch (Exception e) {
+                    Console.WriteLine($"Error from remove a device: {e.Message}");
+                }
+            }
         }
     }
 }

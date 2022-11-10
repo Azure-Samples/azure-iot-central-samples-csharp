@@ -100,6 +100,28 @@ If you have any questions or feature requests, please create new issue with deta
 
 2. In the terminal, type and run `dotnet run`.
 
+## How to generate SDK from offical spec
+
+1. Clone the official specs using 
+    ```bash
+    git clone https://github.com/Azure/azure-rest-api-specs.git
+    ```
+
+2. Install latest `autorest`
+    ```bash
+    npm install -g autorest@latest
+    ```
+
+3. Enter Azure IoT Central Rest API spec folder
+    ```bash
+    cd azure-rest-api-specs/specification/iotcentral/data-plane    
+    ```
+
+4. Using `autorest` generate SDK
+    ```
+    autorest readme.md --csharp --tag=package-2022-10-31-preview --csharp-sdks-folder="~/sdk/csharp" --generation1-convenience-client --namespace="Microsoft.Azure.IoTCentral.Preview" --public-clients=true
+    ```
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
