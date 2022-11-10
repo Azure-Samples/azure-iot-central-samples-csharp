@@ -26,6 +26,8 @@ namespace PreviewExamples {
                         device.Type.Add(DeviceType.IotEdge);
                         devicesClient.Create(deviceId, device);
                         Console.WriteLine($"Device: {deviceId} created!");
+                    } else {
+                        Console.WriteLine($"Error on Create: {e.Message}");
                     }
                 }
                 Thread.Sleep(100);

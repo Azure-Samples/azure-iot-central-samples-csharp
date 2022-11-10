@@ -122,6 +122,10 @@ If you have any questions or feature requests, please create new issue with deta
     autorest readme.md --csharp --tag=package-2022-10-31-preview --csharp-sdks-folder="~/sdk/csharp" --generation1-convenience-client --namespace="Microsoft.Azure.IoTCentral.Preview" --public-clients=true
     ```
 
+**_NOTE_**
+
+`--tag` can be changed to any version that central supported, check the readme.md file under `data-plane` folder. 
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
