@@ -4,6 +4,8 @@ languages:
 - csharp
 products:
 - dotnet
+- azure
+- azure-iot-central
 description: "This sample shows you how to interact with Azure IoT Central APIs"
 urlFragment: "update-this-to-unique-url-stub"
 ---
